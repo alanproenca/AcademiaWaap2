@@ -1,0 +1,62 @@
+{% extends 'paginas/00-modelo-principal.html' %}
+{%load static %}
+
+{% block conteudo %}
+<h3>Lista de Clientes Registrados</h3>
+
+<a href="{% url 'cadastrar-cliente' %}" class="btn btn-primary btn-sm">Adicionar Cliente</a>
+
+<hr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Data Nascimento</th>
+            <th>Sexo</th>
+            <th>Endereço</th>
+            <th>Número</th>
+            <th>Complemento</th>
+            <th>Bairro</th>
+            <th>CEP</th>
+            <th>Telefone</th>
+            <th>Celular</th>                    
+            <th>Opeções</th>
+        </tr>
+        {% for cliente in object_list %}
+        <tr>
+            <td>{{ cliente.cpf }}</td>
+            <td>{{ cliente.nome }}</td>
+            <td>{{ cliente.email }}</td>
+            <td>{{ cliente.dtnascimento }}</td>
+            <td>{{ cliente.sexo }}</td>
+            <td>{{ cliente.endereco }}</td>
+            <td>{{ cliente.numero }}</td>
+            <td>{{ cliente.complemento }}</td>
+            <td>{{ cliente.bairro }}</td>
+            <td>{{ cliente.cep }}</td>
+            <td>{{ cliente.telefone }}</td>
+            <td>{{ cliente.celular }}</td>  
+                 
+            <!--<td class="d-none d-lg-table-cell">{{ cliente.telefone}}</td>-->
+            <td>
+                <a href="{% url 'editar-cliente' cliente.pk %}" class="btn btn-warning btn-sm" title="Editar">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    <img src="{% static "img/alterar.png" %}" width="10" height="13">
+                </a>
+                <a href="{% url 'excluir-cliente' cliente.pk %}" class="btn btn-danger btn-sm" title="Excluir">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    <img src="{% static "img/excluir.png" %}" width="10" height="13">
+                </a>
+            </td>
+        </tr>
+        {% empty %}        
+        <tr>
+            <td colspan="12">Nenhum campo registrado.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

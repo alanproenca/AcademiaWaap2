@@ -1,0 +1,40 @@
+{% extends 'paginas/00-modelo-principal.html' %}
+{%load static %}
+
+{% block conteudo %}
+<h3>Lista de Fichas Registradas</h3>
+
+<a href="{% url 'cadastrar-ficha' %}" class="btn btn-primary btn-sm">Adicionar Ficha</a>
+
+<hr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Nome</th>
+            <th>Cliente</th>
+            <th>Funcionário</th>
+            <th>Exercicio</th> 
+            <th>Arquivo</th> 
+            <th>Opeções</th>         
+        </tr>
+        {% for ficha in object_list %}
+        <tr>
+            <td>{{ ficha.nome }}</td>
+            <td>{{ ficha.cliente }}</td>
+            <td>{{ ficha.funcionario }}</td>
+            <td>{{ ficha.exercicio }}</td>  
+            <td><a href="{{ object.arquivo.url }}">Ver</a></td>        
+            <td>
+                <a href="{% url 'editar-ficha' ficha.pk %}" class="btn btn-warning btn-sm" title="Editar"><img src="{% static "img/alterar.png" %}" width="11" height="15"></a>
+                <a href="{% url 'excluir-ficha' ficha.pk %}" class="btn btn-danger btn-sm" title="Excluir"><img src="{% static "img/excluir.png" %}" width="11" height="15"></a>
+            </td>
+        </tr>
+        {% empty %}        
+        <tr>
+            <td colspan="6">Nenhum campo registrado.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}
